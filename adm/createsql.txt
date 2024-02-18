@@ -1,0 +1,53 @@
+CREATE TABLE IF NOT EXIST subject_and_schema_summery(
+summery_id INT(255) AUTO_INCREAMENT PRIMARY KEY,
+year_month DATE NOT NULL,
+-- CREATE TABLE IF NOT EXISTS subject_and_schema_summary ( 
+    summary_id INT(255) AUTO_INCREMENT PRIMARY KEY,
+    year_month DATE NOT NULL,
+    
+    -- SP TR EXERCS & POEMS
+    sp_tr_exercs_blank_page_book TEXT NOT NULL,
+    sp_tr_exercs_progress INT(3) DEFAULT 100,
+    sp_tr_exercs_action INT(3) DEFAULT 0,
+    sp_tr_exercs_review_teacher TEXT DEFAULT NULL,
+    sp_tr_exercs_review_staff TEXT DEFAULT NULL,
+    
+    -- VOCABULARY (Add columns as needed)
+    vocabulary_abc_book TEXT NOT NULL,
+    vocabulary_progress INT(3) DEFAULT 100,
+    vocabulary_action INT(3) DEFAULT 0,
+    vocabulary_review_teacher TEXT DEFAULT NULL,
+    vocabulary_review_staff TEXT DEFAULT NULL,
+    
+    -- IDENTIFICATION OF LETTERS, NUMBERS, SHAPES & COLOURS (Add columns as needed)
+    identification_abc_book TEXT NOT NULL,
+    identification_progress INT(3) DEFAULT 100,
+    identification_action INT(3) DEFAULT 0,
+    identification_review_teacher TEXT DEFAULT NULL,
+    identification_review_staff TEXT DEFAULT NULL,
+    
+    -- CONVERSATION, GREETINGS & COURTESIES (Add columns as needed)
+    conversation_and_instruct TEXT NOT NULL,
+    conversation_and_instruct_2 TEXT NOT NULL,    
+    conversation_progress INT(3) DEFAULT 100,
+  
+    
+    -- INSTRUCTIONS (Add columns as needed)
+    conversation_action INT(3) DEFAULT 0,
+    conversation_review_teacher TEXT DEFAULT NULL,
+    conversation_review_staff INT(3) DEFAULT 100,
+    
+    -- READING (Add columns as needed)
+    reading_gunasenas_book TEXT NOT NULL,
+    reading_progress INT(3) DEFAULT 100,
+    reading_action INT(3) DEFAULT 0,
+    reading_review_teacher TEXT DEFAULT NULL,
+    reading_review_staff TEXT DEFAULT NULL,
+    
+    -- WRITING (Add columns as needed)
+    writing_ladybird_book TEXT NOT NULL,
+    writing_progress INT(3) DEFAULT 100,
+    writing_action INT(3) DEFAULT 0,
+    writing_review_teacher TEXT DEFAULT NULL,
+    writing_review_staff TEXT DEFAULT NULL
+); 
