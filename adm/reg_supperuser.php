@@ -289,7 +289,7 @@ $linkAdm_footer = new admfooter();
                 var id_staff = $(this).closest('tr').find('td:eq(0)').text();
                 var name_of_staff = $(this).closest('tr').find('td:eq(1)').text();
                 var cellNumber = $(this).index();
-                if (cellNumber == 3) {
+                if (cellNumber == 4) {
 
                 } else {
                     $('#supper_id').val(id_staff);

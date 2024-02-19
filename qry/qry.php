@@ -2920,16 +2920,14 @@ public function selectMyActivity_forAdimn_report($mysqli){
     `monthlyLastTotal`.`Mlst_empid` AS `empid`,
     `monthlyLastTotal`.`Mnet_salary` AS `mlsalary`,
     `monthlyLastTotal`.`Mbonus` AS `bonus`,
-    SUM(`monthlyLastTotal`.`Mnet_salary` + `monthlyLastTotal`.`Mbonus`) AS `total`,
+    SUM(`monthlyLastTotal`.`Mnet_salary` + `monthlyLastTotal`.`Mbonus`) OVER(PARTITION BY `mLid` ORDER BY `mldate`) AS `total`,
     `employ_detail1`.`frist_name` AS `fname`,
     `employ_detail1`.`last_name` AS `lname`
 FROM 
     `monthlyLastTotal`
 JOIN 
     `employ_detail1` 
-    ON `monthlyLastTotal`.`Mlst_empid` = `employ_detail1`.`empid`
-GROUP BY 
-    `monthlyLastTotal`.`Mlst_empid` AND DATE_FORMAT(`monthlyLastTotal`.`Mlst_date`, '%Y-%m');";
+    ON `monthlyLastTotal`.`Mlst_empid` = `employ_detail1`.`empid`";
 
         $this->createTB->value = $myactive; // Set the value property
         $this->createTB->mysqli = $mysqli;

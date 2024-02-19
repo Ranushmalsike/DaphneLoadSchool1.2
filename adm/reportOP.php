@@ -222,17 +222,20 @@ $linkAdm_footer = new admfooter();
         <section class="section dashboard">
             <div class="row">
                 <!-- Left side columns -->
-                <div class="col-lg-8">
+                <div class="col-lg-9">
                     <!-- Sales Card -->
                     <div class="card info-card sales-card">
                         <div class="card-body">
                             <table id="example" class="range_allowance table display table-striped table-hover">
                                 <thead>
+
                                     <tr>
                                         <th>ID</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Year & Month</th>
+                                        <th>Salary</th>
+                                        <th>Allowance</th>
                                         <th>Total Salary (LKR)</th>
                                     </tr>
                                 </thead>
@@ -247,6 +250,8 @@ $linkAdm_footer = new admfooter();
                                                         <td>{$row173['fname']}</td>
                                                         <td>{$row173['lname']}</td>
                                                         <td>{$row173['mldate']}</td>
+                                                        <td>{$row173['mlsalary']}</td>
+                                                        <td>{$row173['bonus']}</td>
                                                         <td>{$row173['total']}</td> 
                                                 </tr>";
                                             $count++;
