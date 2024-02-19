@@ -3413,45 +3413,112 @@ class summery_schema{
     public function Select_summery_schema(){
         $sql5 ="SELECT 
         `summery_id`, 
-        DATE_FORMAT(`year_monthcl`, '%Y-%m') AS `formatted_year_month`, 
-        `sp_tr_exercs_blank_page_book`, 
-        `sp_tr_exercs_progress`, 
-        `sp_tr_exercs_action`, 
-        `sp_tr_exercs_review_teacher`, 
-        `sp_tr_exercs_review_staff`, 
-        `vocabulary_abc_book`, 
-        `vocabulary_progress`, 
-        `vocabulary_action`, 
-        `vocabulary_review_teacher`, 
-        `vocabulary_review_staff`, 
-        `identification_abc_book`, 
-        `identification_progress`, 
-        `identification_action`, 
-        `identification_review_teacher`, 
-        `identification_review_staff`, 
-        `conversation_and_instruct`, 
-        `conversation_and_instruct_2`, 
-        `conversation_progress`, 
-        `conversation_action`, 
-        `conversation_review_teacher`, 
-        `conversation_review_staff`, 
-        `reading_gunasenas_book`, 
-        `reading_progress`, 
-        `reading_action`, 
-        `reading_review_teacher`, 
-        `reading_review_staff`, 
-        `writing_ladybird_book`, 
-        `writing_progress`, 
-        `writing_action`, 
-        `writing_review_teacher`, 
-        `writing_review_staff` 
+        DATE_FORMAT(`subject_and_schema_summery`.`year_monthcl`, '%Y-%m') AS `formatted_year_month`, 
+        `subject_and_schema_summery`.`sp_tr_exercs_blank_page_book` AS `sp_tr_exercs_blank_page_book`, 
+        `subject_and_schema_summery`.`sp_tr_exercs_progress` AS `sp_tr_exercs_progress`, 
+        `subject_and_schema_summery`.`sp_tr_exercs_action` AS `sp_tr_exercs_action`, 
+        `subject_and_schema_summery`.`sp_tr_exercs_review_teacher` AS `sp_tr_exercs_review_teacher`, 
+        `subject_and_schema_summery`.`sp_tr_exercs_review_staff` AS `sp_tr_exercs_review_staff`, 
+        `subject_and_schema_summery`.`vocabulary_abc_book` AS `vocabulary_abc_book`, 
+        `subject_and_schema_summery`.`vocabulary_progress` AS `vocabulary_progress`, 
+        `subject_and_schema_summery`.`vocabulary_action` AS `vocabulary_action`, 
+        `subject_and_schema_summery`.`vocabulary_review_teacher` AS `vocabulary_review_teacher`, 
+        `subject_and_schema_summery`.`vocabulary_review_staff` AS `vocabulary_review_staff`, 
+        `subject_and_schema_summery`.`identification_abc_book` AS `identification_abc_book`, 
+        `subject_and_schema_summery`.`identification_progress` AS `identification_progress`, 
+        `subject_and_schema_summery`.`identification_action` AS `identification_action`, 
+        `subject_and_schema_summery`.`identification_review_teacher` AS `identification_review_teacher`, 
+        `subject_and_schema_summery`.`identification_review_staff` AS `identification_review_staff`, 
+        `subject_and_schema_summery`.`conversation_and_instruct` AS `conversation_and_instruct`, 
+        `subject_and_schema_summery`.`conversation_and_instruct_2` AS `conversation_and_instruct_2`, 
+        `subject_and_schema_summery`.`conversation_progress` AS `conversation_progress`, 
+        `subject_and_schema_summery`.`conversation_action` AS `conversation_action`, 
+        `subject_and_schema_summery`.`conversation_review_teacher` AS `conversation_review_teacher`, 
+        `subject_and_schema_summery`.`conversation_review_staff` AS `conversation_review_staff`, 
+        `subject_and_schema_summery`.`reading_gunasenas_book` AS `reading_gunasenas_book`, 
+        `subject_and_schema_summery`.`reading_progress` AS `reading_progress`, 
+        `subject_and_schema_summery`.`reading_action` AS `reading_action`, 
+        `subject_and_schema_summery`.`reading_review_teacher` AS `reading_review_teacher`, 
+        `subject_and_schema_summery`.`reading_review_staff` AS `reading_review_staff`, 
+        `subject_and_schema_summery`.`writing_ladybird_book` AS `writing_ladybird_book`, 
+        `subject_and_schema_summery`.`writing_progress` AS `writing_progress`, 
+        `subject_and_schema_summery`.`writing_action` AS `writing_action`, 
+        `subject_and_schema_summery`.`writing_review_teacher` AS `writing_review_teacher`, 
+        `subject_and_schema_summery`.`writing_review_staff` AS `writing_review_staff`,
+        `employ_detail1`.`frist_name` AS `frist_name`,
+        `employ_detail1`.`last_name` AS `last_name`,
+        `classTb`.`class_name` AS `class_name`
         FROM 
-        `subject_and_schema_summery`";
+        `subject_and_schema_summery`
+        JOIN
+        `classTb` 
+        ON 
+        `subject_and_schema_summery`.`class` = `classTb`.`class_id`
+        JOIN
+        `employ_detail1`
+        ON
+        `subject_and_schema_summery`.`empid` = `employ_detail1`.`empid`";
 
         $this->createTB->value = $sql5;
         $this->createTB->mysqli = $this->mysqli;
        return $this->createTB->executeqry(); 
     }
+//Select the summery schema for teacher
+    public function Select_summery_schema_teacher($sessionVal){
+        $sql5 ="SELECT 
+        `summery_id`, 
+        DATE_FORMAT(`subject_and_schema_summery`.`year_monthcl`, '%Y-%m') AS `formatted_year_month`, 
+        `subject_and_schema_summery`.`sp_tr_exercs_blank_page_book` AS `sp_tr_exercs_blank_page_book`, 
+        `subject_and_schema_summery`.`sp_tr_exercs_progress` AS `sp_tr_exercs_progress`, 
+        `subject_and_schema_summery`.`sp_tr_exercs_action` AS `sp_tr_exercs_action`, 
+        `subject_and_schema_summery`.`sp_tr_exercs_review_teacher` AS `sp_tr_exercs_review_teacher`, 
+        `subject_and_schema_summery`.`sp_tr_exercs_review_staff` AS `sp_tr_exercs_review_staff`, 
+        `subject_and_schema_summery`.`vocabulary_abc_book` AS `vocabulary_abc_book`, 
+        `subject_and_schema_summery`.`vocabulary_progress` AS `vocabulary_progress`, 
+        `subject_and_schema_summery`.`vocabulary_action` AS `vocabulary_action`, 
+        `subject_and_schema_summery`.`vocabulary_review_teacher` AS `vocabulary_review_teacher`, 
+        `subject_and_schema_summery`.`vocabulary_review_staff` AS `vocabulary_review_staff`, 
+        `subject_and_schema_summery`.`identification_abc_book` AS `identification_abc_book`, 
+        `subject_and_schema_summery`.`identification_progress` AS `identification_progress`, 
+        `subject_and_schema_summery`.`identification_action` AS `identification_action`, 
+        `subject_and_schema_summery`.`identification_review_teacher` AS `identification_review_teacher`, 
+        `subject_and_schema_summery`.`identification_review_staff` AS `identification_review_staff`, 
+        `subject_and_schema_summery`.`conversation_and_instruct` AS `conversation_and_instruct`, 
+        `subject_and_schema_summery`.`conversation_and_instruct_2` AS `conversation_and_instruct_2`, 
+        `subject_and_schema_summery`.`conversation_progress` AS `conversation_progress`, 
+        `subject_and_schema_summery`.`conversation_action` AS `conversation_action`, 
+        `subject_and_schema_summery`.`conversation_review_teacher` AS `conversation_review_teacher`, 
+        `subject_and_schema_summery`.`conversation_review_staff` AS `conversation_review_staff`, 
+        `subject_and_schema_summery`.`reading_gunasenas_book` AS `reading_gunasenas_book`, 
+        `subject_and_schema_summery`.`reading_progress` AS `reading_progress`, 
+        `subject_and_schema_summery`.`reading_action` AS `reading_action`, 
+        `subject_and_schema_summery`.`reading_review_teacher` AS `reading_review_teacher`, 
+        `subject_and_schema_summery`.`reading_review_staff` AS `reading_review_staff`, 
+        `subject_and_schema_summery`.`writing_ladybird_book` AS `writing_ladybird_book`, 
+        `subject_and_schema_summery`.`writing_progress` AS `writing_progress`, 
+        `subject_and_schema_summery`.`writing_action` AS `writing_action`, 
+        `subject_and_schema_summery`.`writing_review_teacher` AS `writing_review_teacher`, 
+        `subject_and_schema_summery`.`writing_review_staff` AS `writing_review_staff`,
+        `employ_detail1`.`frist_name` AS `frist_name`,
+        `employ_detail1`.`last_name` AS `last_name`,
+        `classTb`.`class_name` AS `class_name`
+        FROM 
+        `subject_and_schema_summery`
+        JOIN
+        `classTb` 
+        ON 
+        `subject_and_schema_summery`.`class` = `classTb`.`class_id`
+        JOIN
+        `employ_detail1`
+        ON
+        `subject_and_schema_summery`.`empid` = `employ_detail1`.`empid`
+        WHERE
+        `subject_and_schema_summery`.`empid` = '$sessionVal'";
+
+        $this->createTB->value = $sql5;
+        $this->createTB->mysqli = $this->mysqli;
+       return $this->createTB->executeqry(); 
+    }    
     //Insert the summery schema
     public function Insert_summery_schema($Date_M, $vocabulary, $READING, $CGC, $exercs_poems, $IOLNSC, $INSTRCTNS, $WARNING){
                 $sql5 = "INSERT INTO `subject_and_schema_summery`(

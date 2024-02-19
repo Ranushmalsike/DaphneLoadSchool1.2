@@ -105,6 +105,21 @@ $linkAdm_footer = new admfooter();
     <!------------------->
     <script>
         $(document).ready(function () {
+            function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var baseUrl = "backCode/uploadImage";
+                var $state = $(
+                    '<span><img src="' + baseUrl + '/' + state.element.dataset.image +
+                    '" class="img-flag" height="30%" width="20%" /> ' + state.text + '</span>'
+                );
+                return $state;
+            }
+            $('#TeacherName').select2({
+                templateResult: formatState
+            });
+
             class MyClass {
                 constructor(element) {
                     this.element = element;
@@ -228,8 +243,8 @@ $linkAdm_footer = new admfooter();
 
                 // Perform your desired action with column name, cell value, and summery_id
 
-                if (cellNumber == 5 || cellNumber == 10 || cellNumber == 15 || cellNumber == 21 ||
-                    cellNumber == 26 || cellNumber == 31) {
+                if (cellNumber == 7 || cellNumber == 12 || cellNumber == 17 || cellNumber == 23 ||
+                    cellNumber == 28 || cellNumber == 33) {
                     //open the model
                     $('#col_id').val(cellNumber);
                     $('#sm_id').val(summeryId);
@@ -361,11 +376,45 @@ $linkAdm_footer = new admfooter();
                     <div class="row">
                         <!-- Section 1 -->
                         <div class="col-md-6">
-
                             <div class="form-group">
                                 <label for="Date_M">YEAR / MONTH:</label>
 
                                 <input type="date" class="form-control" id="Date_M" placeholder="Date Month">
+                            </div>
+                            <div class="form-group">
+                                        <label for="classfrmid" class="control-label">Class Name</label>
+                                        <select class="selectClass form-control form-control-sm rounded-0"
+                                            data-rel="chosen" name="classfrmid" id="classfrmid"
+                                            placeholder="select Class">
+                                            <!-- Options will be dynamically added here -->
+                                            <?php 
+                                                        $classTbCheck = new classTbCheck();
+                                                        $result3 = $classTbCheck->check_select($mysqli);
+                                                        // echo "no";
+                                                        
+                                                        while ($row = $result3->fetch_assoc()) {
+                                                        echo "<option value=".$row['class_id'].">".$row['class_name']."</option>";
+                                                        }
+                                                       
+                                                    ?>
+                                        </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="TeacherName">Teacher</label>
+
+                                <select class="selectTeacher form-control form-control-sm rounded-0" name="TeacherName"
+                                    id="TeacherName" placeholder="select Teacher">
+                                    <!-- Options will be dynamically added here -->
+                                    <?php 
+                                                        $TeachersecEmp1 = new TeachersecEmp1();
+                                                        $result5 = $TeachersecEmp1->check_select_check($mysqli);
+                                                        while ($row5 = $result5->fetch_assoc()) {
+                                                            echo '<option data-image="' . $row5['image'] . '" value="'.$row5['empid'].'">&nbsp;&nbsp;'. $row5['frist_name'] . '&nbsp;&nbsp;'. $row5['last_name'] .
+                                                                '</option>';
+                                                        }
+                                                    ?>
+                                </select>
+
                             </div>
                             <div class="form-group">
                                 <label for="vocabulary">VOCABULARY:</label>
@@ -421,7 +470,7 @@ $linkAdm_footer = new admfooter();
                     <table id="example" class="display SBJsec" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="font-weight-bold" rowspan="1">YEAR / MONTH</th>
+                                <th class="font-weight-bold" colspan="3">YEAR / MONTH/ Class/ Teacher</th>
                                 <th class="font-weight-bold" colspan="5">SP TR EXERCS & POEMSn</th>
                                 <th class="font-weight-bold" colspan="5">VOCABULARY</th>
                                 <th class="font-weight-bold" colspan="5">IDENTIFICATION OF LETTERS, NUMBERS, SHAPES &
@@ -434,6 +483,8 @@ $linkAdm_footer = new admfooter();
                             </tr>
 
                             <tr>
+                                <th class="font-weight-normal">Calss</th>
+                                <th class="font-weight-normal">Teacher Name</th>
                                 <th class="font-weight-normal">Ref. / Txt. Books</th>
 
                                 <th class="font-weight-normal">Blank page Exercise book - 80 page</th>
@@ -489,37 +540,39 @@ $linkAdm_footer = new admfooter();
                                             while ($row = $result2->fetch_assoc()) {
                                         echo "<tr>
                                             <td>{$row['formatted_year_month']}</td>
+                                            <td>{$row['class_name']}</td>
+                                            <td>{$row['frist_name']} {$row['last_name']}</td>
                                             <td>{$row['sp_tr_exercs_blank_page_book']}</td>
                                             <td><progress value='{$row['sp_tr_exercs_action']}' max='{$row['sp_tr_exercs_progress']}'></progress> <p>({$row['sp_tr_exercs_action']} / {$row['sp_tr_exercs_progress']}) </p></td>
                                             <td>{$row['sp_tr_exercs_action']}</td>
-                                            <td>{$row['sp_tr_exercs_review_teacher']}</td>
-                                            <td>{$row['sp_tr_exercs_review_staff']}</td>
+                                            <td class='text-light bg-secondary'>{$row['sp_tr_exercs_review_teacher']}</td>
+                                            <td class='text-light bg-dark'>{$row['sp_tr_exercs_review_staff']}</td>
                                             <td>{$row['vocabulary_abc_book']}</td>
                                             <td><progress value='{$row['vocabulary_action']}' max='{$row['vocabulary_progress']}'></progress> <p>({$row['vocabulary_action']} / {$row['vocabulary_progress']}) </p></td>
                                             <td>{$row['vocabulary_action']}</td>
-                                            <td>{$row['vocabulary_review_teacher']}</td>
-                                            <td>{$row['vocabulary_review_staff']}</td>
+                                            <td class='text-light bg-secondary'>{$row['vocabulary_review_teacher']}</td>
+                                            <td class='text-light bg-dark'>{$row['vocabulary_review_staff']}</td>
                                             <td>{$row['identification_abc_book']}</td>
                                             <td><progress value='{$row['identification_action']}' max='{$row['identification_progress']}'></progress> <p>({$row['identification_action']} / {$row['identification_progress']}) </p></td>
                                             <td>{$row['identification_action']}</td>
-                                            <td>{$row['identification_review_teacher']}</td>
-                                            <td>{$row['identification_review_staff']}</td>
+                                            <td class='text-light bg-secondary'>{$row['identification_review_teacher']}</td>
+                                            <td class='text-light bg-dark'>{$row['identification_review_staff']}</td>
                                             <td>{$row['conversation_and_instruct']}</td>
                                             <td>{$row['conversation_and_instruct_2']}</td>
                                             <td><progress value='{$row['conversation_action']}' max='{$row['conversation_progress']}'></progress> <p>({$row['conversation_action']} / {$row['conversation_progress']}) </p></td>
                                             <td>{$row['conversation_action']}</td>
-                                            <td>{$row['conversation_review_teacher']}</td>
-                                            <td>{$row['conversation_review_staff']}</td>
+                                            <td class='text-light bg-secondary'>{$row['conversation_review_teacher']}</td>
+                                            <td class='text-light bg-dark'>{$row['conversation_review_staff']}</td>
                                             <td>{$row['reading_gunasenas_book']}</td>
                                             <td><progress value='{$row['reading_action']}' max='{$row['reading_progress']}'></progress> <p>({$row['reading_action']} / {$row['reading_progress']}) </p></td>
                                             <td>{$row['reading_action']}</td>
-                                            <td>{$row['reading_review_teacher']}</td>
-                                            <td>{$row['reading_review_staff']}</td>
+                                            <td class='text-light bg-secondary'>{$row['reading_review_teacher']}</td>
+                                            <td class='text-light bg-dark'>{$row['reading_review_staff']}</td>
                                             <td>{$row['writing_ladybird_book']}</td>
                                             <td><progress value='{$row['writing_action']}' max='{$row['writing_progress']}'></progress> <p>({$row['writing_action']} / {$row['writing_progress']}) </p></td>
                                             <td>{$row['writing_action']}</td>
-                                            <td>{$row['writing_review_teacher']}</td>
-                                            <td>{$row['writing_review_staff']}</td>
+                                            <td class='text-light bg-secondary'>{$row['writing_review_teacher']}</td>
+                                            <td class='text-light bg-dark'>{$row['writing_review_staff']}</td>
                                             <td>
                                             <a href='#deleteEmployeeModal' class='delete'  value='{$row['summery_id'] }' id='DeleteSubject_301'><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></a>
                                             </td>

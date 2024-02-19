@@ -627,7 +627,9 @@ TODO: subject_schema_summery
     writing_progress INT(3) DEFAULT 100,
     writing_action INT(3) DEFAULT 0,
     writing_review_teacher TEXT DEFAULT NULL,
-    writing_review_staff TEXT DEFAULT NULL
+    writing_review_staff TEXT DEFAULT NULL,
+    class INT(255),
+    empid INT(255)
     )";
         // Assuming $this->createTB->executeqry() executes the SQL query
         $this->createTB->value = $createTableQuery;
