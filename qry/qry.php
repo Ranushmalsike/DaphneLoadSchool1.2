@@ -1793,6 +1793,35 @@ class genarateMonthlySub{
             $this->todaydate = date('Y-m-d');
             $this->yearMonth = date('Y-m', strtotime($this->todaydate));
     }
+
+    /*
+        >> get_the_total_salary_of_completed_task
+    */
+    public function get_the_total_salary_of_completed_task($mysqli, $scheds3, $TimeYear_Month){
+        $select_totla_price_of_task_completed = "
+                    SELECT 
+                    DISTINCT
+                    `day_slry_gen_id`, 
+                    `empid`, 
+                    `DSlGen_detail_id`, 
+                    `time_table_id`, 
+                    DATE_FORMAT(`date_generated`, '%Y-%m') AS `monthWithYear`,
+                    `calculate_hour`, 
+                     SUM(`total_salary_day`) AS `total_salary`, 
+                    `trv_gen` 
+                    FROM 
+                    `day_salary_gen`
+                    WHERE
+                    `empid` = '$scheds3' 
+                    AND 
+                    DATE_FORMAT(`date_generated`, '%Y-%m') = '$TimeYear_Month'
+                    GROUP BY
+                    `empid`, DATE_FORMAT(`date_generated`, '%Y-%m')";
+                $this->createTB->value = $select_totla_price_of_task_completed;
+                $this->createTB->mysqli = $mysqli;
+               return $this->createTB->executeqry();
+    }
+
     //for time table (insert day salary of time shedule and transport slary use this function )
     public function genarateMonthlySub_IN_and_UP_1($mysqli, $scheds3, $totalSalry, $pay_tvel_allovance){
         $result180 = $this->Check_M_sub_sal->Msub_check_salary_select($mysqli, $scheds3);
@@ -1823,12 +1852,17 @@ class genarateMonthlySub{
                      $lastTotalMonth = (($result183 + $result184 + $result185) - $result186);
                     //get the bounus salry
                    $this->LastMontlyTotal_UP1($mysqli, $scheds3, $lastTotalMonth);
-
-                   if($lastTotalMonth > 20000){
+                   $TimeYear_Month = date("Y-m");
+                    $lastTotalMonth1 = get_the_total_salary_of_completed_task($mysqli, $scheds3, $TimeYear_Month)->fetch_assoc()["total_salary"];
+                   if($lastTotalMonth1 > 20000){
                     $result187 = 3000.00;
                      $this->LastMontlyTotal_UP2($mysqli, $scheds3, $result187);
                    }
                    else{
+                    //Select the salary of task copleted
+                    
+                    $lastTotalMonth = get_the_total_salary_of_completed_task($mysqli, $scheds3, $TimeYear_Month)->fetch_assoc()["total_salary"];
+
                     $result187 = $this->Check_M_sub_sal->Plus_Allowance_Condition($mysqli, $lastTotalMonth)->fetch_assoc()["allowance_price"];
                     //update Montly last Total
                     
@@ -1884,12 +1918,16 @@ class genarateMonthlySub{
                     $lastTotalMonth = ($result183 + $result184 + $result185) - $result186;
                     //get the bounus salry
                    $this->LastMontlyTotal_UP1($mysqli, $scheds3, $lastTotalMonth);
+                   $TimeYear_Month = date("Y-m");
+                   $lastTotalMonth1 = get_the_total_salary_of_completed_task($mysqli, $scheds3, $TimeYear_Month)->fetch_assoc()["total_salary"];
 
-                   if($lastTotalMonth > 20000){
+                   if($lastTotalMonth1 > 20000){
                     $result187 = "3000.00";
                      $this->LastMontlyTotal_UP2($mysqli, $scheds3, $result187);
                    }
                    else{
+                    $lastTotalMonth = get_the_total_salary_of_completed_task($mysqli, $scheds3, $TimeYear_Month)->fetch_assoc()["total_salary"];
+
                     $result187 = $this->Check_M_sub_sal->Plus_Allowance_Condition($mysqli, $lastTotalMonth)->fetch_assoc()["allowance_price"];
                     //update Montly last Total
                     
@@ -1940,12 +1978,15 @@ class genarateMonthlySub{
                     $lastTotalMonth = ($result183 + $result184 + $result185) - $result186;
                     //get the bounus salry
                    $this->LastMontlyTotal_UP1($mysqli, $scheds3, $lastTotalMonth);
-
-                   if($lastTotalMonth > 20000){
+                   $TimeYear_Month = date("Y-m");
+                   $lastTotalMonth1 = get_the_total_salary_of_completed_task($mysqli, $scheds3, $TimeYear_Month)->fetch_assoc()["total_salary"];
+                   if($lastTotalMonth1 > 20000){
                     $result187 = "3000.00";
                      $this->LastMontlyTotal_UP2($mysqli, $scheds3, $result187);
                    }
                    else{
+                    $lastTotalMonth = get_the_total_salary_of_completed_task($mysqli, $scheds3, $TimeYear_Month)->fetch_assoc()["total_salary"];
+                    
                     $result187 = $this->Check_M_sub_sal->Plus_Allowance_Condition($mysqli, $lastTotalMonth)->fetch_assoc()["allowance_price"];
                     //update Montly last Total
                     
@@ -2073,6 +2114,7 @@ class teacher_Timetbl {
         $this->createTB = new excu();
         $this->Msub = new genarateMonthlySub();
     }
+
 /*
 TODO: now i want to modify this section adda the travel code
 */
@@ -2216,6 +2258,8 @@ TODO: now i want to modify this section adda the travel code
                 ? month salary generate
                 */
                 //$pay_tvel_allovance = $checktimeTblTecher->getTimetbleDate($mysqli, $getid)->fetch_assoc()["pay_tvel_allovance"];
+                
+
                 $pay_tvel_allovance = 0;
                 $this->Msub->genarateMonthlySub_IN_and_UP_1($mysqli, $scheds3, $totalSalry, $pay_tvel_allovance);
 
