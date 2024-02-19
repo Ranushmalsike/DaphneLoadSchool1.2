@@ -357,58 +357,60 @@ $linkAdm_footer = new admfooter();
                     <table id="example" class="display SBJsec" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="font-weight-bold" rowspan="1">YEAR / MONTH</th>
-                                <th class="font-weight-bold" colspan="5">SP TR EXERCS & POEMSn</th>
-                                <th class="font-weight-bold" colspan="5">VOCABULARY</th>
-                                <th class="font-weight-bold" colspan="5">IDENTIFICATION OF LETTERS, NUMBERS, SHAPES &
+                                <th class="font-weight-bold" colspan="2">YEAR / MONTH</th>
+                                <th class="font-weight-bold" colspan="4">SP TR EXERCS & POEMSN</th>
+                                <th class="font-weight-bold" colspan="4">VOCABULARY</th>
+                                <th class="font-weight-bold" colspan="4">IDENTIFICATION OF LETTERS, NUMBERS, SHAPES &
                                     COLOURS</th>
-                                <th class="font-weight-bold" colspan="3">CONVERSATION, GREETINGS & COURTESIES</th>
+                                <th class="font-weight-bold" colspan="2">CONVERSATION, GREETINGS & COURTESIES</th>
                                 <th class="font-weight-bold" colspan="3">INSTRCTNS</th>
-                                <th class="font-weight-bold" colspan="5">READING</th>
-                                <th class="font-weight-bold" colspan="5">WRITING</th>
+                                <th class="font-weight-bold" colspan="4">READING</th>
+                                <th class="font-weight-bold" colspan="4">WRITING</th>
                                 <th class="font-weight-bold" colspan="1">--</th>
                             </tr>
 
                             <tr>
+                                
                                 <th class="font-weight-normal">Ref. / Txt. Books</th>
+                                <th class="font-weight-normal">Class</th>
 
                                 <th class="font-weight-normal">Blank page Exercise book - 80 page</th>
                                 <th class="font-weight-normal">Progress</th>
-                                <th class="font-weight-normal">Action</th>
+                                
                                 <th class="font-weight-normal">Review (Teacher)</th>
                                 <th class="font-weight-normal">Review (Staff)</th>
 
                                 <th class="font-weight-normal">My ABC Book (DLS Workbook).[identification of letters and
                                     of pictures beginning with each letter of the alphabet]</th>
                                 <th class="font-weight-normal">Progress</th>
-                                <th class="font-weight-normal">Action</th>
+                                
                                 <th class="font-weight-normal">Review (Teacher)</th>
                                 <th class="font-weight-normal">Review (Staff)</th>
 
                                 <th class="font-weight-normal">My ABC Book (DLS Workbook)</th>
                                 <th class="font-weight-normal">Progress</th>
-                                <th class="font-weight-normal">Action</th>
+                                
                                 <th class="font-weight-normal">Review (Teacher)</th>
                                 <th class="font-weight-normal">Review (Staff)</th>
 
                                 <th class="font-weight-normal">My ABC Book (DLS Workbook)</th>
                                 <th class="font-weight-normal"></th>
                                 <th class="font-weight-normal">Progress</th>
-                                <th class="font-weight-normal">Action</th>
+                                
                                 <th class="font-weight-normal">Review (Teacher)</th>
                                 <th class="font-weight-normal">Review (Staff)</th>
 
                                 <th class="font-weight-normal">Gunasena's Beginning to read 1st half pages 1 - 21 & 28 -
                                     30</th>
                                 <th class="font-weight-normal">Progress</th>
-                                <th class="font-weight-normal">Action</th>
+                                
                                 <th class="font-weight-normal">Review (Teacher)</th>
                                 <th class="font-weight-normal">Review (Staff)</th>
 
                                 <th class="font-weight-normal">Ladybird writing Book series 2, ABC WorkBook Guideline
                                     exercise Book - 80 pages</th>
                                 <th class="font-weight-normal">Progress</th>
-                                <th class="font-weight-normal">Action</th>
+                                
                                 <th class="font-weight-normal">Review (Teacher)</th>
                                 <th class="font-weight-normal">Review (Staff)</th>
                                 <th class="font-weight-normal"></th>
@@ -418,48 +420,57 @@ $linkAdm_footer = new admfooter();
 
                         <tbody class="font-weight-light">
                             <?php
+                            $sessionVal = $_SESSION['emp'];
                                             $summery_schema = new summery_schema($mysqli);
-                                            $result2 = $summery_schema->Select_summery_schema($mysqli);
+                                            $result2 = $summery_schema->Select_summery_schema_teacher($sessionVal);
                                            // echo "no";
                                             $idGen = 1;
+                                            if(mysqli_num_rows($result2) < 0){
+                                                echo "not found";
+                                            }
+                                            else{
+
+                                            
                                             while ($row = $result2->fetch_assoc()) {
                                         echo "<tr>
                                             <td>{$row['formatted_year_month']}</td>
+                                            <td>{$row['class_name']}</td>
                                             <td>{$row['sp_tr_exercs_blank_page_book']}</td>
                                             <td><progress value='{$row['sp_tr_exercs_action']}' max='{$row['sp_tr_exercs_progress']}'></progress> <p>({$row['sp_tr_exercs_action']} / {$row['sp_tr_exercs_progress']}) </p></td>
-                                            <td>{$row['sp_tr_exercs_action']}</td>
-                                            <td>{$row['sp_tr_exercs_review_teacher']}</td>
-                                            <td>{$row['sp_tr_exercs_review_staff']}</td>
+                                            
+                                            <td class='text-light bg-secondary'>{$row['sp_tr_exercs_review_teacher']}</td>
+                                            <td class='text-light bg-dark'>{$row['sp_tr_exercs_review_staff']}</td>
                                             <td>{$row['vocabulary_abc_book']}</td>
                                             <td><progress value='{$row['vocabulary_action']}' max='{$row['vocabulary_progress']}'></progress> <p>({$row['vocabulary_action']} / {$row['vocabulary_progress']}) </p></td>
-                                            <td>{$row['vocabulary_action']}</td>
-                                            <td>{$row['vocabulary_review_teacher']}</td>
-                                            <td>{$row['vocabulary_review_staff']}</td>
+                                            
+                                            <td class='text-light bg-secondary'>{$row['vocabulary_review_teacher']}</td>
+                                            <td class='text-light bg-dark'>{$row['vocabulary_review_staff']}</td>
                                             <td>{$row['identification_abc_book']}</td>
                                             <td><progress value='{$row['identification_action']}' max='{$row['identification_progress']}'></progress> <p>({$row['identification_action']} / {$row['identification_progress']}) </p></td>
-                                            <td>{$row['identification_action']}</td>
-                                            <td>{$row['identification_review_teacher']}</td>
-                                            <td>{$row['identification_review_staff']}</td>
+                                            
+                                            <td class='text-light bg-secondary'>{$row['identification_review_teacher']}</td>
+                                            <td class='text-light bg-dark'>{$row['identification_review_staff']}</td>
                                             <td>{$row['conversation_and_instruct']}</td>
                                             <td>{$row['conversation_and_instruct_2']}</td>
                                             <td><progress value='{$row['conversation_action']}' max='{$row['conversation_progress']}'></progress> <p>({$row['conversation_action']} / {$row['conversation_progress']}) </p></td>
-                                            <td>{$row['conversation_action']}</td>
-                                            <td>{$row['conversation_review_teacher']}</td>
-                                            <td>{$row['conversation_review_staff']}</td>
+                                            
+                                            <td class='text-light bg-secondary'>{$row['conversation_review_teacher']}</td>
+                                            <td class='text-light bg-dark'>{$row['conversation_review_staff']}</td>
                                             <td>{$row['reading_gunasenas_book']}</td>
                                             <td><progress value='{$row['reading_action']}' max='{$row['reading_progress']}'></progress> <p>({$row['reading_action']} / {$row['reading_progress']}) </p></td>
-                                            <td>{$row['reading_action']}</td>
-                                            <td>{$row['reading_review_teacher']}</td>
-                                            <td>{$row['reading_review_staff']}</td>
+                                            
+                                            <td class='text-light bg-secondary'>{$row['reading_review_teacher']}</td>
+                                            <td class='text-light bg-dark'>{$row['reading_review_staff']}</td>
                                             <td>{$row['writing_ladybird_book']}</td>
                                             <td><progress value='{$row['writing_action']}' max='{$row['writing_progress']}'></progress> <p>({$row['writing_action']} / {$row['writing_progress']}) </p></td>
-                                            <td>{$row['writing_action']}</td>
-                                            <td>{$row['writing_review_teacher']}</td>
-                                            <td>{$row['writing_review_staff']}</td>
+                                            
+                                            <td class='text-light bg-secondary'>{$row['writing_review_teacher']}</td>
+                                            <td class='text-light bg-dark'>{$row['writing_review_staff']}</td>
                                             <td>
                                             <a href='#deleteEmployeeModal' class='delete'  value='{$row['summery_id'] }' id='DeleteSubject_301' disabled><i class='material-icons' data-toggle='tooltip' title='Delete'></i></a>
                                             </td>
                                         </tr>";
+                                            }
                                             }
                                         ?>
                         </tbody>
@@ -539,10 +550,27 @@ $linkAdm_footer = new admfooter();
                                             <label>Add Percentage</label>
                                             <select name="" id="process_cal" class="form-control">
                                                 <option value="0">Select</option>
+                                                <option value="5">5%</option>
+                                                <option value="10">10%</option>
+                                                <option value="15">15%</option>
+                                                <option value="20">20%</option>
                                                 <option value="25">25%</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35%</option>
+                                                <option value="40">40%</option>
+                                                <option value="45">45%</option>
                                                 <option value="50">50%</option>
+                                                <option value="55">55</option>
+                                                <option value="60">60%</option>
+                                                <option value="65">65%</option>
+                                                <option value="70">70%</option>
                                                 <option value="75">75%</option>
+                                                <option value="80">80</option>
+                                                <option value="85">85%</option>
+                                                <option value="90">90%</option>
+                                                <option value="95">95%</option>
                                                 <option value="100">100%</option>
+                                                
                                             </select>
 
                                         </div>
