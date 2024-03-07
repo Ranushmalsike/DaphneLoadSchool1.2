@@ -302,9 +302,10 @@ $commonKeyWord_footer = new commonKeyWord_footer();
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
           data-aos="fade-up" data-aos-delay="200">
-         <h2><?php $vblsection2->title(); ?></h2>
+          <h1>&nbsp;&nbsp; <?php $vblsection2->title(); ?></h1>
           <div class="animate__animated animate__flipInY animate__delay-2s">
-            <h3 id="mind_attract_show"></h3>
+            <center><h2 id="mind_attract_show"> </h2> </center>
+
           </div>
           <!--div class="d-flex justify-content-center justify-content-lg-start">
             <a href="#about" class="btn-get-started scrollto">Get Started</a>
