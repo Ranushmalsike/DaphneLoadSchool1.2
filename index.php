@@ -304,7 +304,7 @@ $commonKeyWord_footer = new commonKeyWord_footer();
           data-aos="fade-up" data-aos-delay="200">
           <center> <h2><?php $vblsection2->title(); ?></h2></center>
           <div class="animate__animated animate__flipInY animate__delay-2s mb-5">
-            <h1 id="mind_attract_show"></h1>
+            <h2 id="mind_attract_show"></h2>
 
           </div>
           <!--div class="d-flex justify-content-center justify-content-lg-start">
