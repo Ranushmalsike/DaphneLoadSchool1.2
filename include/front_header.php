@@ -12,8 +12,7 @@ class front_header{
 <header id="header" class="fixed-top ">
   <div class="container d-flex align-items-center">
 
-    <h1 class="logo me-auto animate__animated animate__flip animate__delay-2s"><a href="index.php"><?php require_once 'qry/daphne_variable.php';
-      $vblsection = new  daphnescV(); $vblsection->logo(); ?></a></h1>
+    <h1 class="logo me-auto animate__animated animate__flip animate__delay-2s"><a href="index.php">DLS</a></h1>
     <!-- Uncomment below if you prefer to use an image logo -->
     <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 

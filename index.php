@@ -302,10 +302,10 @@ $commonKeyWord_footer = new commonKeyWord_footer();
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
           data-aos="fade-up" data-aos-delay="200">
-          <h1 id="mind_attract_show"></h1>
+          <center> <h2><?php $vblsection2->title(); ?></h2></center>
+          <div class="animate__animated animate__flipInY animate__delay-2s mb-5">
+            <h1 id="mind_attract_show"></h1>
 
-          <div class="animate__animated animate__flipInY animate__delay-2s">
-            <h2><?php $vblsection2->title(); ?></h2>
           </div>
           <!--div class="d-flex justify-content-center justify-content-lg-start">
             <a href="#about" class="btn-get-started scrollto">Get Started</a>
@@ -726,7 +726,7 @@ $commonKeyWord_footer = new commonKeyWord_footer();
               <div class="email">
                 <i class="bi bi-envelope"></i>
                 <h4>Email:</h4>
-                <p>info@DaphneCollage.com</p>
+                <p>info@daphnelordschoole.com</p>
               </div>
 
               <div class="phone">
@@ -809,7 +809,7 @@ $commonKeyWord_footer = new commonKeyWord_footer();
               Sri lanka <br><br>
               <strong>Phone:</strong> <?= 
                       $contactUs->Homebtn125($mysqli)->fetch_assoc()["telephone_number2"] ?><br>
-              <strong>Email:</strong> info@example.com<br>
+              <strong>Email:</strong> info@daphnelordschoole.com<br>
             </p>
           </div>
 
